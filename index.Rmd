@@ -1,0 +1,19 @@
+---
+title: "My awesome website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+# Welcome
+
+Welcome to Meritxell's personal website!
+
+<img src="images/Meritxell.jpeg" style="width:50%">
+
+
+## About me
+
+You can read more about me [here](about.html).
