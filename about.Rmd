@@ -1,0 +1,14 @@
+---
+title: "About me"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+About Meritxell: p8105 student
+
+<img src="images/Meritxell.jpeg" style="width:50%">
+
+More information on Meritxell's background is available on [LinkedIn](https://www.linkedin.com/in/meritxellml/)
