@@ -1,0 +1,74 @@
+---
+title: "Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    source: embed
+---
+
+```{r setup, include = FALSE}
+# Load required libraries for the assignment
+
+library(tidyverse)
+library(p8105.datasets)
+library(plotly)
+library(flexdashboard)
+```
+
+```{r, include = FALSE}
+# Load ny_noaa dataset, wrangle data, and reduce the n to a random sample of 5,000 weather observations
+
+noaa_df = ny_noaa %>%
+  janitor::clean_names() %>%
+  separate(date, into = c("year", "month", "day"), sep = '-') %>%
+  mutate(month = as.numeric(month),
+         year = as.factor(year),
+         month = month.abb[month],
+         month = factor(month, levels = month.abb),
+         tmax = as.numeric(tmax),
+         tmin = as.numeric(tmin),
+         prcp = as.numeric(prcp),
+         snow = as.numeric(snow),
+         prcp2 = prcp/10,
+         tmax2 = tmax/10,
+         tmin2 = tmin/10) %>% 
+  filter(
+    year %in% 2000:2010,
+   !is.na(tmax),
+   !is.na(tmin),
+   !is.na(prcp),
+   !is.na(snow)) %>% 
+  sample_n(5000)
+```
+
+## Temperature
+
+### Year-long maximum temperature
+
+```{r}
+max_temp = noaa_df %>%
+  mutate(text_label = str_c("Tmax: ºC", tmax2, "\nTmin: ºC", tmin2),
+         ) %>% 
+  plot_ly(
+    x = ~month, y = ~tmax2, type = "scatter", mode = "markers",
+    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
+
+max_temp
+```
+
+## Weather Events {.tabset .tabset-fade}
+
+### Precipitation
+
+Count of days with rain over time.
+
+```{r}
+
+```
+
+### Snow
+
+Snow distribution over time.
+
+```{r}
+```
