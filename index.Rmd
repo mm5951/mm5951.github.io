@@ -1,18 +1,28 @@
 ---
-title: "My awesome website"
+title: "Meritxell's Personal Website"
 output: 
   html_document:
     toc: true
     toc_float: true
 ---
 
-# Welcome
+## Welcome!
 
-Welcome to Meritxell's personal website!
-
-<img src="images/Meritxell.jpeg" style="width:50%">
+Welcome to Meritxell's Personal Website! This site has contains information on her professional background, as well as links related to Data Science assignments completed as part of her Master's of Public Health at Columbia University.
 
 
-## About me
 
-You can read more about me [here](about.html).
+
+## About Meritxell
+
+Meritxell is a Medical Doctor (MD, University of Barcelona, 2020) in pursuit of a career at the intersection of Cancer Control and Global Health Governance. She is currently a Master of Global Public Health candidate (MPH, Columbia University in the City of New York, 2023) under the support of La Caixa Fellowship program. 
+ 
+She holds 4 years of professional experience in Translational Research and Implementation Science focusing on Cancer Control internationally, with a broad portfolio ranging from both quantitative and qualitative data analysis, project management and impact assessment, to stakeholder engagement and policy analysis.
+
+Meritxell currently serves as a Research Associate for the European Cancer Leagues, in addition to representing the NGO as a Youth Ambassador at a national level. Moreover, as part of her postgraduate studies, she recently joined the International Agency for Research on Cancer (IARC-WHO) to work on a multi-state Health System Assessment in India.
+
+Previously, she served as an Epidemiologist within the Public Health Agency of Catalonia, working on COVID-19 surveillance and response. Furthermore, she defended her master thesis on the topic of breast cancer and brain metastasis, for which she received a scholarship from the Spanish Association Against Cancer. 
+ 
+Driven by the purpose to contribute to human wellbeing, Meritxell aims at generating evidence and translating it into action in order to tackle cancer from a public health perspective. She holds a particular interest in the WHO’s call towards Cervical Cancer Elimination, given its fundamental gender and health equity framing.
+
+**Meritxell's resume is availabe [here](about.html).**
