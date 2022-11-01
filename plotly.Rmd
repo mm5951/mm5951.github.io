@@ -16,7 +16,7 @@ The **National Oceanic and Atmospheric Association (NOAA)** of the National Cent
 
 We're going to load required libraries for this project.
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 library(tidyverse)
 library(p8105.datasets)
 library(plotly)
@@ -52,33 +52,21 @@ noaa_df = ny_noaa %>%
    !is.na(prcp),
    !is.na(snow)) %>% 
   sample_n(5000)
-
-str(noaa_df)
-skimr::skim(noaa_df)
 ```
 
 ## Data visualization
 
 The following interactive data visualizations (aka dashboard) are creating using `plot_ly`.
 
-### Line plot
-
-Using  I make a **two-panel plot showing the average max temperature in January and in July** in each station across years. 
+### Box plot
 
 ```{r}
 max_temp = noaa_df %>%
-  filter(month == "Jan" | month == "Jul") %>%  
-  group_by(id, year, month) %>% 
-  summarize(mean_temp = mean(tmax2, na.rm = TRUE)) %>%
-  ggplot(aes(x = year, y = mean_temp, group = id)) +
-  geom_line(aes(color = id)) +
-  facet_grid(. ~ month) +
-  labs(
-    title = "Maximum temperature per station over time (January and July visualized)",
-    x = "Time (years)",
-    y = "Mean maximum temperature (ºC)",
-    caption = "Exploratory analysis from the ny_noaa dataset") +
-  theme(legend.position = "none")
+  mutate(text_label = str_c("Tmax: ºC", tmax2, "\nTmin: ºC", tmin2),
+         ) %>% 
+  plot_ly(
+    x = ~month, y = ~tmax2, type = "scatter", mode = "markers",
+    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
+
 max_temp
 ```
-
