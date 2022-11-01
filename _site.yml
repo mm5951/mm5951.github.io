@@ -3,12 +3,14 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "About"
+    - text: "Resume"
       href: about.html
     - icon: fa-envelope fa-lg
       href: mailto:<m.mallafre@columbia.edu>
+    - icon: fa-linkedin fa-lg
+      href: https://www.linkedin.com/in/meritxellml/
     - icon: fa-github fa-lg
       href: http://github.com/mm5951/
 output:
   html_document:
-    theme: cerulean
+    theme: sandstone
