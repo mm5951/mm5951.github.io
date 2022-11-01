@@ -42,6 +42,7 @@ noaa_df = ny_noaa %>%
          tmax = as.numeric(tmax),
          tmin = as.numeric(tmin),
          prcp = as.numeric(prcp),
+         snow = as.numeric(snow),
          prcp2 = prcp/10,
          tmax2 = tmax/10,
          tmin2 = tmin/10) %>% 
@@ -58,7 +59,9 @@ noaa_df = ny_noaa %>%
 
 The following interactive data visualizations (aka dashboard) are creating using `plot_ly`.
 
-### Box plot
+### Box plot: monthly maximum temperature
+
+The following `plot_ly()`boxplot showcases the maximum temperature (ºC) per month, with different colors attributed to each weather station.
 
 ```{r}
 max_temp = noaa_df %>%
@@ -70,3 +73,21 @@ max_temp = noaa_df %>%
 
 max_temp
 ```
+
+## Bar plot : 
+
+Amount of snow fall days per year
+
+```{r}
+days_snow = noaa_df %>% 
+  mutate(snow_day = if_else((snow == 0 | snow != 0),"no","yes")) %>% 
+  count(snow) %>% 
+  plot_ly(x = ~snow, y = ~n, color = ~id, type = "bar", colors = "viridis")
+
+days_snow
+
+
+noaa_df2 = noaa_df %>% 
+  mutate(snow_day = if_else((snow == 0 | snow > 0),"no","yes"))
+```
+
