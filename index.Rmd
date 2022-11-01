@@ -11,8 +11,6 @@ output:
 Welcome to Meritxell's Personal Website! This site has contains information on her professional background, as well as links related to Data Science assignments completed as part of her Master's of Public Health at Columbia University.
 
 
-
-
 ## About Meritxell
 
 Meritxell is a Medical Doctor (MD, University of Barcelona, 2020) in pursuit of a career at the intersection of Cancer Control and Global Health Governance. She is currently a Master of Global Public Health candidate (MPH, Columbia University in the City of New York, 2023) under the support of La Caixa Fellowship program. 
@@ -26,3 +24,10 @@ Previously, she served as an Epidemiologist within the Public Health Agency of C
 Driven by the purpose to contribute to human wellbeing, Meritxell aims at generating evidence and translating it into action in order to tackle cancer from a public health perspective. She holds a particular interest in the WHO’s call towards Cervical Cancer Elimination, given its fundamental gender and health equity framing.
 
 **Meritxell's resume is availabe [here](about.html).**
+
+## Data Science sample work
+
+This website contains some sample work as part of the p8105 class on Data Science. More specifically, a Dashboard with weather NOAA data is available [here](dashboard.html).
+
+The **National Oceanic and Atmospheric Association (NOAA)** of the National Centers for Environmental Information (NCEI) provides public access to some weather data, including the GHCN (Global Historical Climatology Network)-Daily database of summary statistics from weather stations around the world. More information on the adapted NOAA dataset for p8105 is available [here](https://p8105.com/dataset_noaa.html).
+

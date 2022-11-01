@@ -327,7 +327,7 @@ div.tocify {
   <a href="about.html">Resume</a>
 </li>
 <li>
-  <a href="plotly.html">Dashboard</a>
+  <a href="dashboard.html">Dashboard</a>
 </li>
 <li>
   <a href="mailto:&lt;m.mallafre@columbia.edu&gt;">
@@ -398,6 +398,36 @@ interest in the WHO’s call towards Cervical Cancer Elimination, given
 its fundamental gender and health equity framing.</p>
 <p><strong>Meritxell’s resume is availabe <a
 href="about.html">here</a>.</strong></p>
+<p>## Data Science p8105 sample work</p>
+<p>The <strong>National Oceanic and Atmospheric Association
+(NOAA)</strong> of the National Centers for Environmental Information
+(NCEI) provides public access to some weather data, including the GHCN
+(Global Historical Climatology Network)-Daily database of summary
+statistics from weather stations around the world. More information on
+the adapted NOAA dataset for p8105 is available <a
+href="https://p8105.com/dataset_noaa.html">here</a>.</p>
+<p>Next, we’ll concentrate on a subset of the NOAA data. The code below
+extracts the “ny_noaa” dataset and does some <strong>data cleaning and
+wrangling</strong> to generate the “noaa_df” including:</p>
+<ul>
+<li>Set reasonable names using <code>janitor::clean_names</code>
+function.</li>
+<li>Create separate variables for year, month, and day using
+<code>separate</code>.</li>
+<li>Coerce the right data type for temperature, precipitation, and
+snowfall observations using <code>mutate</code> in combination with
+<code>as.numeric</code>and similar arguments.</li>
+<li>Express the variables “prcp”, “tmax” and “tmin” in easy to interpret
+units (that is, in mm and ºC, instead of tenths of such unit as in the
+original dataset). As a result of the <code>mutate</code> function, 3
+new columns (prcp2, tmin2, tmax2) are generated.</li>
+</ul>
+<p>In order to reduce the scope of the dataset (and therefore allow for
+better functioning of an online dashboard), using <code>filter</code>
+we’ll select the data from the years between 2000 and 2010, and drop all
+the empty precipitation, snow and temperature records. Finally, using
+<code>sample_n()</code> we’ll select a random sample of 5,000
+observations.</p>
 </div>
 
 
