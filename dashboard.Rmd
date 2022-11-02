@@ -3,6 +3,7 @@ title: "Dashboard"
 output: 
   flexdashboard::flex_dashboard:
     orientation: rows
+    vertical_layout: fill
     source: embed
 ---
 
@@ -43,10 +44,8 @@ noaa_df = ny_noaa %>%
 
 ## Temperature
 
-### Temperature range per weather station
+### Mean temperature range per weather station
 ```{r}
-#MISSING : text label mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp))
-         
 minmax_temp = noaa_df %>%
   group_by(id) %>%
   summarise(c = mean(min_temp), h = mean(max_temp)) %>%
@@ -64,7 +63,8 @@ minmax_temp = noaa_df %>%
     x = ~h, y = ~id, 
     name  = "Maximum temperature"
   ) %>%
-  layout(xaxis = list(title = "Mean Minimum and Maximum temperature per Weather Station"))
+  layout(xaxis = list(title = "Mean Minimum and Maximum temperature per Weather Station"),
+         yaxis = list(title = "Weather Station"))
 
 minmax_temp
 ```
@@ -73,15 +73,17 @@ minmax_temp
 
 ### Precipitation
 
-Distribution of days with rain over time.
+Distribution of monthly rain
 
 ```{r}
 prcp = noaa_df %>%
-  mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp),
+  mutate(text_label = str_c("Precipitation: mm ", prcp2, "\nSnowfall: mm ", snow),
          ) %>% 
   plot_ly(
     x = ~month, y = ~prcp2, type = "scatter", mode = "markers",
-    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
+    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis") %>% 
+  layout(xavis = list (title = "Month"),
+    yaxis = list(title = "Precipitation (mm)"))
 
 prcp
 ```
@@ -89,44 +91,18 @@ prcp
 
 ### Snow
 
-Count of days with snow distribution over time (per weather station).
+Count of yearly days with snow per weather station
 
 ```{r}
 snow = noaa_df %>%
   group_by(id) %>%
-  mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp),
-         ) %>% 
   mutate(snow_day = if_else((snow == "0"),"0","1"),
          snow_total = sum(as.numeric(snow_day))) %>% 
   plot_ly(
     x = ~year, y = ~snow_total, type = "bar",
-    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
+    color = ~id, alpha = 0.5, colors = "viridis") %>% 
+  layout(xavis = list (title = "Year"),
+    yaxis = list(title = "Total days of snowfall"))
 
 snow
-```
-
-## Temperature {.tabset .tabset-fade}
-
-### Minimum temperature
-```{r}
-min_temp = noaa_df %>%
-  mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp),
-         ) %>% 
-  plot_ly(
-    x = ~month, y = ~min_temp, type = "scatter", mode = "markers",
-    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
-
-min_temp
-```
-
-### Maximum temperature
-```{r}
-max_temp = noaa_df %>%
-  mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp),
-         ) %>% 
-  plot_ly(
-    x = ~month, y = ~max_temp, type = "box",
-    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
-
-max_temp
 ```

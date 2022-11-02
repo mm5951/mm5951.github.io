@@ -25,9 +25,9 @@ Driven by the purpose to contribute to human wellbeing, Meritxell aims at genera
 
 **Meritxell's resume is availabe [here](about.html).**
 
-## Data Science sample work
+## Data Science
 
-This website contains some sample work as part of the p8105 class on Data Science. More specifically, a Dashboard with weather NOAA data is available [here](dashboard.html).
+This website contains some sample work as part of the p8105 class on Data Science. More specifically, a dashboard with weather visualizations from the NOAA dataset is available [here](dashboard.html).
 
 The National Oceanic and Atmospheric Association (NOAA) of the National Centers for Environmental Information (NCEI) provides public access to some weather data, including the GHCN (Global Historical Climatology Network)-Daily database of summary statistics from weather stations around the world. More information on the adapted NOAA dataset for p8105 is available [here](https://p8105.com/dataset_noaa.html).
 
