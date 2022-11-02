@@ -16,7 +16,7 @@ library(flexdashboard)
 ```
 
 ```{r, include = FALSE}
-# Load ny_noaa dataset, wrangle data, and reduce the n to a random sample of 5,000 weather observations
+# Load ny_noaa dataset, wrangle data, and reduce the n to a random sample of 5,000 weather observations.
 
 noaa_df = ny_noaa %>%
   janitor::clean_names() %>%
@@ -30,12 +30,12 @@ noaa_df = ny_noaa %>%
          prcp = as.numeric(prcp),
          snow = as.numeric(snow),
          prcp2 = prcp/10,
-         tmax2 = tmax/10,
-         tmin2 = tmin/10) %>% 
+         max_temp = tmax/10,
+         min_temp = tmin/10) %>% 
   filter(
     year %in% 2000:2010,
-   !is.na(tmax),
-   !is.na(tmin),
+   !is.na(min_temp),
+   !is.na(max_temp),
    !is.na(prcp),
    !is.na(snow)) %>% 
   sample_n(5000)
@@ -43,32 +43,90 @@ noaa_df = ny_noaa %>%
 
 ## Temperature
 
-### Year-long maximum temperature
-
+### Temperature range per weather station
 ```{r}
-max_temp = noaa_df %>%
-  mutate(text_label = str_c("Tmax: ºC", tmax2, "\nTmin: ºC", tmin2),
-         ) %>% 
-  plot_ly(
-    x = ~month, y = ~tmax2, type = "scatter", mode = "markers",
-    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
+#MISSING : text label mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp))
+         
+minmax_temp = noaa_df %>%
+  group_by(id) %>%
+  summarise(c = mean(min_temp), h = mean(max_temp)) %>%
+  mutate(id = forcats::fct_reorder(id, c)) %>% 
+  plot_ly(alpha = 0.5, colors = "viridis") %>%
+  add_segments(
+    x = ~c, y = ~id,
+    xend = ~h, yend = ~id, 
+    showlegend = FALSE) %>%
+  add_markers(
+    x = ~c, y = ~id, 
+    name = "Minimum temperature"
+  ) %>%
+  add_markers(
+    x = ~h, y = ~id, 
+    name  = "Maximum temperature"
+  ) %>%
+  layout(xaxis = list(title = "Mean Minimum and Maximum temperature per Weather Station"))
 
-max_temp
+minmax_temp
 ```
 
 ## Weather Events {.tabset .tabset-fade}
 
 ### Precipitation
 
-Count of days with rain over time.
+Distribution of days with rain over time.
 
 ```{r}
+prcp = noaa_df %>%
+  mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp),
+         ) %>% 
+  plot_ly(
+    x = ~month, y = ~prcp2, type = "scatter", mode = "markers",
+    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
 
+prcp
 ```
+
 
 ### Snow
 
-Snow distribution over time.
+Count of days with snow distribution over time (per weather station).
 
 ```{r}
+snow = noaa_df %>%
+  group_by(id) %>%
+  mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp),
+         ) %>% 
+  mutate(snow_day = if_else((snow == "0"),"0","1"),
+         snow_total = sum(as.numeric(snow_day))) %>% 
+  plot_ly(
+    x = ~year, y = ~snow_total, type = "bar",
+    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
+
+snow
+```
+
+## Temperature {.tabset .tabset-fade}
+
+### Minimum temperature
+```{r}
+min_temp = noaa_df %>%
+  mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp),
+         ) %>% 
+  plot_ly(
+    x = ~month, y = ~min_temp, type = "scatter", mode = "markers",
+    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
+
+min_temp
+```
+
+### Maximum temperature
+```{r}
+max_temp = noaa_df %>%
+  mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp),
+         ) %>% 
+  plot_ly(
+    x = ~month, y = ~max_temp, type = "box",
+    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis")
+
+max_temp
 ```
