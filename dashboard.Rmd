@@ -69,7 +69,7 @@ minmax_temp = noaa_df %>%
 minmax_temp
 ```
 
-## Weather Events {.tabset .tabset-fade}
+## Weather Events {.tabset .tabset-fade .tabset-fade}
 
 ### Precipitation
 
@@ -105,4 +105,22 @@ snow = noaa_df %>%
     yaxis = list(title = "Total days of snowfall"))
 
 snow
+```
+
+
+### Temperature
+
+Distribution of maximum temperature by month
+
+```{r}
+max_temp = noaa_df %>%
+  mutate(text_label = str_c("Tmax: ºC", max_temp, "\nTmin: ºC", min_temp),
+         ) %>% 
+  plot_ly(
+    x = ~month, y = ~max_temp, type = "violin",
+    color = ~id, text = ~text_label, alpha = 0.5, colors = "viridis") %>% 
+    layout(xavis = list (title = "Month"),
+    yaxis = list(title = "Maximum Temperature (ºC)"))
+
+max_temp
 ```
